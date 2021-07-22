@@ -27,4 +27,17 @@ public class BookServiceImpl implements BookService{
         }
         return null;
     }
+
+    @Override
+    public Book returnBook(Book book) {
+        Optional<Book> returnRequestBook = bookRepository.findById(book.getBookId());
+        if(returnRequestBook.isPresent()){
+            int bookCount = returnRequestBook.get().getBookCount();
+            Book updatedBookEntity = returnRequestBook.get();
+            updatedBookEntity.setBookCount(bookCount+1);
+            bookRepository.save(updatedBookEntity);
+            return returnRequestBook.get();
+        }
+        return null;
+    }
 }

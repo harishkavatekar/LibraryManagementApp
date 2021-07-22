@@ -41,4 +41,16 @@ public class LibraryController {
             }
             return new ResponseEntity("Book is unavailable !!", HttpStatus.OK) ;
         }
+
+        @GetMapping(value = "/book/return/{bookId}", produces = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity returnBook(@PathVariable(name = "bookId") int bookId){
+            Book requestBook = new Book(bookId);
+            Book returnBook = libraryService.returnBook(requestBook);
+
+            if(returnBook != null){
+                return new ResponseEntity("Book is returned !!", HttpStatus.OK);
+            }
+
+            return new ResponseEntity("Book is not returned yet", HttpStatus.OK);
+        }
 }

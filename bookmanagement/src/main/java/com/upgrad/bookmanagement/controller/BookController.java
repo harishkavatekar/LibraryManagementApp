@@ -44,4 +44,20 @@ public class BookController {
         }
         return null;
     }
+
+    @GetMapping(value="/book/return/{bookId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity returnBook(@PathVariable(name="bookId") int bookId) {
+
+        //convert movieDTO to MovieEntity
+
+        Book requestedBook = new Book(bookId);
+        Book returnedBook = bookService.returnBook(requestedBook);
+
+
+        if (returnedBook != null) {
+            return new ResponseEntity(returnedBook, HttpStatus.OK);
+        }
+        return null;
+    }
 }
